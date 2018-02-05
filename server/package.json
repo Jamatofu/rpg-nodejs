@@ -1,0 +1,19 @@
+{
+  "name": "rpg-nodejs",
+  "version": "1.0.0",
+  "description": "A \"MORPG\" for Web navigator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jamatofu/rpg-nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jamatofu/rpg-nodejs/issues"
+  },
+  "homepage": "https://github.com/Jamatofu/rpg-nodejs#readme"
+}
