@@ -1,7 +1,6 @@
-var http = require('http');
+var app = require('express')();
+app.listen(8080);
 
-var server = http.createServer(function(req, res) {
-  res.writeHead(200);
-  res.end('Salut tout le monde !');
+app.get('/', (req, res) => {
+  res.send('hello');
 });
-server.listen(8080);
