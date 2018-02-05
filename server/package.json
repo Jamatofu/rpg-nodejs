@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Jamatofu/rpg-nodejs/issues"
   },
-  "homepage": "https://github.com/Jamatofu/rpg-nodejs#readme"
+  "homepage": "https://github.com/Jamatofu/rpg-nodejs#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
 }
