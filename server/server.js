@@ -5,13 +5,20 @@ var socketIO = require('socket.io');
 
 var app = express();
 var server = http.Server(app);
-var io = socketIO(server);
+var io = require('socket.io').listen(server);
 
 app.set('port', 8080);
 app.use(express.static('client'));
 
 app.get("/", function(req, res){
     res.sendFile("index.html");
+});
+
+
+
+io.on('connection', function(client) {
+    console.log('User connected');
+
 });
 
 // Starts the server.

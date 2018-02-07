@@ -1,3 +1,5 @@
+var socket = io.connect('http://localhost:8080');
+
 function logIn(id ) {
   console.log("Log : " + id);
   document.getElementById(id).style.display = "none";
