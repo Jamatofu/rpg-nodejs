@@ -1,14 +1,20 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as path from "path";
+import * as http from "http";
+import * as io from "socket.io";
 import * as indexRoute from "./route";
 
 class App {
-    private PORT: number = 8083;
+    private PORT: number = 8080;
     public app: express.Application;
+    public socket;
 
     constructor() {
       this.app = express();
+      console.log(__dirname);
+      this.app.use(express.static(__dirname + '/../../client'));
+      // this.socket = io(this.server);
       this.routes();
     }
 
@@ -17,17 +23,21 @@ class App {
     }
 
     public startServer(): void {
+      this.app.listen(this.PORT, () => {
+        console.log("Starting server on port " + this.PORT);
+      });
 
+      // this.socket.on('connection',  (client) => {
+      //   console.log('User connected');
+      // });
     }
 
     private routes() {
-      let router: express.Router;
-      router = express.Router();
-
-      var index: indexRoute.Index = new indexRoute.Index();
-
-      router.get("/", index.index.bind(index.index));
-
-      this.app.use(router);
+      this.app.get("/", function(req: express.Request, res: express.Response) {
+          res.sendFile("index.html");
+      });
     }
 }
+
+var server = App.bootstrap();
+server.startServer();

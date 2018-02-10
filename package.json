@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Jamatofu/rpg-nodejs#readme",
   "dependencies": {
+    "debug": "^3.1.0",
     "express": "^4.16.2",
     "socket.io": "^2.0.4"
   },
