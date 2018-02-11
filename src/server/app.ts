@@ -7,45 +7,49 @@ import { createServer, Server } from 'http';
 import * as indexRoute from "./route";
 
 class App {
-    private PORT: number = 8080;
-    public app: express.Application;
-    public socket: io.Server;
-    public server: Server;
+  private PORT: number = 8080;
+  public app: express.Application;
+  public socket: io.Server;
+  public server: Server;
 
-    constructor() {
-      this.app = express();
-      this.app.use(express.static(__dirname + '/../../client'));
+  constructor() {
+    this.app = express();
+    this.app.use(express.static(__dirname + '/../../client'));
 
-      this.server = createServer(this.app);
-      this.socket = require('socket.io')(this.server);
+    this.server = createServer(this.app);
+    this.socket = require('socket.io')(this.server);
 
-      this.routes();
-    }
+    this.routes();
+  }
 
-    public static bootstrap(): App {
-      return new App();
-    }
+  public static bootstrap(): App {
+    return new App();
+  }
 
-    public startServer(): void {
+  public startServer(): void {
 
-    this.socket.on('connection',  (client) => {
+    this.socket.on('connection', (client) => {
       console.log('User connected');
 
-          this.socket.on('disconnect', () => {
-              console.log('Client disconnected');
-          });
+      client.on('logIn', (pseudo) => {
+        console.log('Pseudo : ' + pseudo);
+      });
+
+      client.on('disconnect', () => {
+        console.log('Client disconnected');
+      });
     });
 
-      this.server.listen(this.PORT, () => {
-        console.log("Starting server on port " + this.PORT);
-      });
-    }
+    this.server.listen(this.PORT, () => {
+      console.log("Starting server on port " + this.PORT);
+    });
+  }
 
-    private routes() {
-      this.app.get("/", function(req: express.Request, res: express.Response) {
-          res.sendFile("index.html");
-      });
-    }
+  private routes() {
+    this.app.get("/", function(req: express.Request, res: express.Response) {
+      res.sendFile("index.html");
+    });
+  }
 }
 
 var server = App.bootstrap();

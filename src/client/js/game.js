@@ -1,8 +1,9 @@
 var socket = io.connect('http://localhost:8080');
 
-function logIn(id ) {
-  console.log("Log : " + id);
-  document.getElementById(id).style.display = "none";
+function logIn(idDiv, idForm) {
+  document.getElementById(idDiv).style.display = "none";
+  console.log("Log in : " + idForm.pseudo.value);
+  socket.emit('logIn', idForm.pseudo);
 }
 
 window.onkeydown = function(event) {
