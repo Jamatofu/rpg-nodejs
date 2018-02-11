@@ -3,18 +3,22 @@ import * as bodyParser from "body-parser";
 import * as path from "path";
 import * as http from "http";
 import * as io from "socket.io";
+import { createServer, Server } from 'http';
 import * as indexRoute from "./route";
 
 class App {
     private PORT: number = 8080;
     public app: express.Application;
-    public socket;
+    public socket: io.Server;
+    public server: Server;
 
     constructor() {
       this.app = express();
-      console.log(__dirname);
       this.app.use(express.static(__dirname + '/../../client'));
-      // this.socket = io(this.server);
+
+      this.server = createServer(this.app);
+      this.socket = require('socket.io')(this.server);
+
       this.routes();
     }
 
@@ -23,13 +27,18 @@ class App {
     }
 
     public startServer(): void {
-      this.app.listen(this.PORT, () => {
+
+    this.socket.on('connection',  (client) => {
+      console.log('User connected');
+
+          this.socket.on('disconnect', () => {
+              console.log('Client disconnected');
+          });
+    });
+
+      this.server.listen(this.PORT, () => {
         console.log("Starting server on port " + this.PORT);
       });
-
-      // this.socket.on('connection',  (client) => {
-      //   console.log('User connected');
-      // });
     }
 
     private routes() {
